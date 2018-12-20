@@ -64,4 +64,11 @@
     $ cd screenly-python
     $ ./buttons.py
     ```
+1. buttons.py uses these pin definitions by default
+    ```
+    Pin 38 = Forward (normally high)
+    Pin 37 = Backward (normally high)
+    Pin 39 = Ground
+    ```
+1. Wire momentary, normally-open switches between the function pins and ground
 
