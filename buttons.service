@@ -1,0 +1,12 @@
+[Unit]
+Description=Screenly Hardware Button Service
+After=multi-user.target
+
+[Service]
+Type=idle
+User=pi
+Group=pi
+ExecStart=/usr/bin/python /home/pi/screenly-python/buttons.py
+
+[Install]
+WantedBy=multi-user.target
