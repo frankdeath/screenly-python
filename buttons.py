@@ -61,7 +61,8 @@ if __name__ == '__main__':
 
   while not ge.timeToExit:
     # Sleep for a relatively long time to minimize cpu usage, but still be responsive
-    sleep(1e-2)
+    # sleeping for a hundredth of a second results in 1% cpu usage on a pi zero w
+    time.sleep(1e-2)
 
   # Clean up
   print("Cleaning up!")
