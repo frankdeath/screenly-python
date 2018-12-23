@@ -12,8 +12,12 @@ import time
 class GracefulExit:
   def __init__(self):
     self.timeToExit = False
+    # Ctrl+C
     signal.signal(signal.SIGINT, self.exitNow)
+    # kill
     signal.signal(signal.SIGTERM, self.exitNow)
+    # systemd will send a hangup signal if the SIGTERM doesn't succeed
+    signal.signal(signal.SIGHUP, self.exitNow)
 
   def exitNow(self, signum, frame):
     self.timeToExit = True
@@ -55,10 +59,13 @@ def setupGPIO():
   GPIO.add_event_detect(pause, GPIO.FALLING,callback=playPauseCallback)
 
 if __name__ == '__main__':
+  print("Handling signals")
   ge = GracefulExit()
 
+  print("Configuring GPIO")
   setupGPIO()
 
+  print("Running main loop")
   while not ge.timeToExit:
     # Sleep for a relatively long time to minimize cpu usage, but still be responsive
     # sleeping for a hundredth of a second results in 1% cpu usage on a pi zero w
