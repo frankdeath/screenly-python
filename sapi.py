@@ -14,21 +14,21 @@ payload = {'accept':'application/json'}
 control_url = ""
 next_url = ""
 prev_url = ""
+pause_url = ""
 
 def get_ip():
     ip = subprocess.check_output(['hostname', '-I'])
     return ip.strip()
 
 def setup():
-    global control_url
-    global next_url
-    global prev_url
+    global control_url, next_url, prev_url, pause_url
 
     ip = get_ip()
 
     control_url = "http://" + ip + "/api/v1/assets/control/"
     next_url = control_url + "next"
     prev_url = control_url + "previous"
+    pause_url = control_url + "pause"
 
 def action(url):
     if url != "":
@@ -43,6 +43,9 @@ def next():
 
 def prev():
     action(prev_url)
+
+def pause():
+    action(pause_url)
 
 # Do the setup automatically
 setup()

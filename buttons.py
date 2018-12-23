@@ -32,6 +32,7 @@ def forwardCallback(channel):
 
 def playPauseCallback(channel):
   print("Play/Pause button was pushed!")
+  sapi.pause()
 
 # Register callback functions
 GPIO.add_event_detect(backward, GPIO.FALLING,callback=backwardCallback)
