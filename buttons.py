@@ -25,15 +25,15 @@ class GracefulExit:
 # Callback functions for buttons
 def backwardCallback(channel):
   print("Backward button was pushed!")
-  sapi.prev()
+  sapi.prev_flag = True
 
 def forwardCallback(channel):
   print("Forward button was pushed!")
-  sapi.next()
+  sapi.next_flag = True
 
 def playPauseCallback(channel):
   print("Play/Pause button was pushed!")
-  sapi.pause()
+  sapi.pause_flag = True
 
 def setupGPIO():
   # Define pins
@@ -67,6 +67,20 @@ if __name__ == '__main__':
 
   print("Running main loop")
   while not ge.timeToExit:
+    # Respond to the action flags here; this adds 0.3% cpu usage on a pi zero w
+    # This rate limits the button handling and provides much-needed debouncing
+    if sapi.prev_flag == True:
+        print("Requesting previous asset")
+        sapi.prev()
+        sapi.prev_flag = False
+    if sapi.next_flag == True:
+        print("Requesting next asset")
+        sapi.next()
+        sapi.next_flag = False
+    if sapi.pause_flag == True:
+        print("Pausing or resuming current asset")
+        sapi.pause()
+        sapi.pause_flag = False
     # Sleep for a relatively long time to minimize cpu usage, but still be responsive
     # sleeping for a hundredth of a second results in 1% cpu usage on a pi zero w
     time.sleep(1e-2)

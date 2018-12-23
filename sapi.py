@@ -16,6 +16,11 @@ next_url = ""
 prev_url = ""
 pause_url = ""
 
+# Flags to be used by clients
+next_flag = False
+prev_flag = False
+pause_flag = False
+
 def get_ip():
     ip = subprocess.check_output(['hostname', '-I'])
     return ip.strip()
