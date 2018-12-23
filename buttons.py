@@ -7,8 +7,9 @@ import RPi.GPIO as GPIO
 import sapi
 
 # Define pins
-forward=38
 backward=37
+forward=38
+# Pin 39 is ground
 pause=40
 
 # Ignore warnings
@@ -19,7 +20,6 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(backward, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(forward, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(pause, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-# Pin 39 is ground
 
 # Callback functions for buttons
 def backwardCallback(channel):
@@ -44,5 +44,3 @@ message = input("Press enter to quit\n")
 
 # Clean up
 GPIO.cleanup()
-
-
